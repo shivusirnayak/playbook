@@ -1,0 +1,14 @@
+---
+  - name: cloning repo from git hub
+    hosts: webservers
+    become: true
+    gather_facts:
+    vars:
+    - vars_files:  vault2.yml
+      
+
+    tasks: 
+    - name: clone the repo
+      git:
+        repo: https://shivusirnayak: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@github.com/shivusirnayak/cloningrerpo.git
+        dest: /home/vaulttest
