@@ -1,0 +1,49 @@
+---
+  - name: installing tomcat package
+    hosts: webservers
+    become: true
+    gather_facts: yes
+
+    tasks: 
+    - name: installing JAVA
+      ansible.builtin.apt:
+        name: default-jdk
+        state: present
+
+    - name: downloading tomcat packages
+      get_url:
+        url: https://downloads.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.tar.gz.sha512
+        dest: /opt
+        mode: 0755
+
+    - name: extracting packages
+      unarchive:  
+        src: /opt/apache-tomcat-9.0.68.tar.gz.sha512
+        dest: /opt
+        remote_src: yes
+      notify: exact the file
+    handlers: exact the file
+  
+    - name: giving permission to files 
+      file:
+        path: /opt/apache-tomcat-9.0.68.tar.gz
+        mode: 0755
+        recurse: yes
+
+    - name: link file for tomcatup
+      file:
+        src: /opt/apache-tomcat-9.0.68.tar.gz/bin/startup.sh
+        dest: /usr/local/bin/tomcatup
+        state: link
+
+    - name: link file for tomcatdown
+      file:
+        src: /opt/apache-tomcat-9.0.68.tar.gz/bin/shutdown.sh
+        dest: /usr/local/bin/tomcatdown
+    
+    - name: start the service
+      command: nohup ./startup.sh
+      args:
+        chdir: /opt/apache-tomcat-9.0.68.tar.gz/bin
+
+

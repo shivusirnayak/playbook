@@ -1,0 +1,13 @@
+---
+  - name: creating the file
+    hosts: webservers
+    become: true
+    gather_facts: yes
+    tasks: 
+     - name: created file file1
+       ansible.builtin.file:
+         path: /home/sirnayak/file1
+         state: touch
+         owner: root
+         mode: 0755
+

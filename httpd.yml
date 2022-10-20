@@ -1,0 +1,13 @@
+---
+  - name: installing httpd package
+    hosts: webservers
+    become: true
+    gather_facts: yes
+
+    tasks:
+    - name: installing httpd package
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+

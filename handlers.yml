@@ -1,0 +1,20 @@
+---
+  - name: installing apache tomacat
+    hosts: webservers
+    become: true
+    gather_facts: yes
+
+
+    tasks: 
+    - name: installing tomcat on servers
+      ansible.builtin.apt: 
+        name: apache tomcat
+        state: present
+      notify: start the tomcat service
+
+    handlers:
+    - name: start the tomcat servicet
+      service:
+        name: apache tomcat
+        state: started
+ 

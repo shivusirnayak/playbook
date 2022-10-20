@@ -1,0 +1,12 @@
+---
+  - name: copying the files from one location to another
+    hosts: webservers
+    become: true
+    gather_facts: yes
+    tasks:
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: /etc/ansible/playbook/user.yml
+        dest: /opt
+        owner: sirnayak
+        group: sirnayak

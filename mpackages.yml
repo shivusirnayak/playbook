@@ -1,0 +1,16 @@
+---
+  - name: installing multi[ple packages 
+    hosts: webservers
+    become: true
+    gather_facts: yes
+
+
+    tasks:
+    - name: installing multiple packages by using items
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      with_items: 
+         - git
+         - tree
+         - wget

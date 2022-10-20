@@ -1,0 +1,15 @@
+---
+  - name: creating the directory
+    hosts: webservers
+    become: true
+    gather_facts: yes
+
+
+    tasks:
+    - name: creating diectory dir1
+      file:
+        name: dir1
+        path: /home
+        state: directory
+        owner: sirnayak
+        mode: 0755
